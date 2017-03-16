@@ -30,7 +30,7 @@ DFileReadBinary::DFileReadBinary(char *read_filename) :
    memset(fname, 0, MAX_FNAME_LEN+1);
    hdl = _open(read_filename, _O_BINARY | _O_RDONLY);
    if (hdl == -1) {
-      fstatus = GetLastError();
+      fstatus = (int) GetLastError();
       // syslog("%s: %s\n", read_filename, get_system_message(fstatus));
       return ;
    }

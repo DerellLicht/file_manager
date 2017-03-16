@@ -792,7 +792,7 @@ char *next_field(char *q)
 char *find_newlines(char *hd)
 {
    char *tl = hd ;
-   while (1) {
+   while (LOOP_FOREVER) {
       if (*tl == 0)
          return 0;
       if (*tl == CR  ||  *tl == LF) {
@@ -811,7 +811,7 @@ char *find_newlines(char *hd)
 void strip_newlines(char *rstr)
 {
    int slen = (int) strlen(rstr) ;
-   while (1) {
+   while (LOOP_FOREVER) {
       if (slen == 0)
          break;
       if (*(rstr+slen-1) == '\n'  ||  *(rstr+slen-1) == '\r') {
@@ -821,7 +821,7 @@ void strip_newlines(char *rstr)
          break;
       }
    }
-}
+}  //lint !e429 Custodial pointer 'rstr' (line 811) has not been freed or returned
 
 //**********************************************************************
 //lint -esym(714, strip_leading_spaces)

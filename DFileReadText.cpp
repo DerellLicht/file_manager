@@ -76,6 +76,12 @@ uint DFileReadText::length(void)
 }
 
 //********************************************************************
+// DFileReadText.cpp  104  Warning 669: 
+//    Possible data overrun for function 'fgets(char *, int, struct _iobuf *)', 
+//    argument 2 (size=128) exceeds argument 1 (size=2)
+//    [Reference: file read_file.cpp: lines 86, 89; 
+//                file DFileReadText.cpp: lines 37, 93, 97, 99, 100]
+//********************************************************************
 char *DFileReadText::read_line(uint inlen)
 {
    if (fd == NULL  ||  fstatus < 0) {
@@ -88,7 +94,7 @@ char *DFileReadText::read_line(uint inlen)
          return NULL;
       }
    }
-   else {
+   else {   //  inlen > 0
       if (char_buf == NULL) {
           char_buf_len = inlen ;
           char_buf = (char *) new char[char_buf_len+1];
@@ -101,7 +107,7 @@ char *DFileReadText::read_line(uint inlen)
       }
    }
 
-   char *bptr = fgets(char_buf, (int) char_buf_len, fd);
+   char *bptr = fgets(char_buf, (int) char_buf_len, fd); //lint !e669
    if (bptr != NULL) {
       strip_newlines(char_buf);
       fstatus = (int) strlen(char_buf);
